@@ -1,22 +1,35 @@
 #include "main.h"
+#include <stdio.h>
 
 /**
  * print_binary - Prints the binary representation of a number
- * @n: The number to print in binary
+ * @n: Decimal number to print as binary
  */
 void print_binary(unsigned long int n)
 {
-	unsigned long int mask = 1;
+	unsigned long int temp = n;
+	int shifts = 0;
 
-	mask <<= (sizeof(unsigned long int) * 8) - 1;
-
-	while (mask)
+	/* If the number is zero, print 0 and return */
+	if (n == 0)
 	{
-		if (n & mask)
-			_putchar('1');
-		else
-			_putchar('0');
+		printf("0");
+		return;
+	}
 
-		mask >>= 1;
+	/* Determine the number of binary digits required to represent the number */
+	while (temp != 0)
+	{
+		temp >>= 1;
+		shifts++;
+	}
+
+	/* Print the binary digits in reverse order */
+	for (; shifts > 0; shifts--)
+	{
+		if ((n >> (shifts - 1)) & 1)
+			printf("1");
+		else
+			printf("0");
 	}
 }
